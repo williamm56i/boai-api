@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/boai
+    username: postgres
+    password: zlsh30227
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: boai
+server:
+  servlet:
+    context-path: /boai
+mybatis:
+  mapper-locations: classpath:/sqlmap/*.xml
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  webjars:
+    prefix: ""

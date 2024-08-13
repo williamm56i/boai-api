@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.boai.persistence.dao.AboutInfoDao">
+    <resultMap id="BaseResultMap" type="org.boai.persistence.vo.AboutInfo">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+        <result column="SUBTITLE" property="subtitle" jdbcType="VARCHAR" />
+        <result column="IMAGE" property="image" jdbcType="VARCHAR" />
+        <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+        <result column="ENABLE" property="enable" jdbcType="VARCHAR" />
+        <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+        <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        ID, TITLE, SUBTITLE, IMAGE, CONTENT, ENABLE, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
+    </sql>
+    <select id="selectEnable" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List" />
+        from ABOUT_INFO
+        <where>
+            ENABLE = 'Y'
+        </where>
+    </select>
+    <insert id="insert">
+        insert into ABOUT_INFO ( <include refid="Base_Column_List" /> )
+        values (
+            #{id,jdbcType=VARCHAR},
+            #{title,jdbcType=VARCHAR},
+            #{subtitle,jdbcType=VARCHAR},
+            #{image,jdbcType=VARCHAR},
+            #{content,jdbcType=VARCHAR},
+            #{enable,jdbcType=VARCHAR},
+            #{createId,jdbcType=VARCHAR},
+            #{createDate,jdbcType=TIMESTAMP},
+            #{updateId,jdbcType=VARCHAR},
+            #{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+</mapper>
