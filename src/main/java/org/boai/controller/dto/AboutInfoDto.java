@@ -1,9 +1,11 @@
 package org.boai.controller.dto;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class AboutInfoDto {
+public class AboutInfoDto extends PageDto{
 
     String id;
 

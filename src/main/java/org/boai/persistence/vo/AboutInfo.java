@@ -2,12 +2,13 @@ package org.boai.persistence.vo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 public class AboutInfo {
 
-    String id;
+    BigDecimal id;
 
     String title;
 

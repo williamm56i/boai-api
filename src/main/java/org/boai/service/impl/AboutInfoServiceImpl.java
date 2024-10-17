@@ -1,15 +1,20 @@
 package org.boai.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.dao.AboutInfoDao;
 import org.boai.persistence.vo.AboutInfo;
+import org.boai.persistence.vo.manual.AboutInfoVo;
 import org.boai.security.BoaiUserDetailsService;
 import org.boai.service.AboutInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -28,13 +33,33 @@ public class AboutInfoServiceImpl implements AboutInfoService {
     }
 
     @Override
+    public PageInfo<AboutInfoVo> paginateAboutInfo(AboutInfoDto dto) {
+        String sort = StringUtils.isNotEmpty(dto.getOrderString()) ? dto.getOrderString() : "ID asc";
+        return PageHelper.startPage(dto.getPageNum(), dto.getPageSize(), sort)
+                .doSelectPageInfo(() -> aboutInfoDao.selectByTitle(dto.getTitle()));
+    }
+
+    @Override
+    public AboutInfo getAboutInfoDetail(String id) {
+        return aboutInfoDao.selectByPrimaryKey(new BigDecimal(id));
+    }
+
+    @Override
     public String createAboutInfo(AboutInfoDto dto) {
         String currentId = userDetailsService.getUsername();
         AboutInfo aboutInfo = new AboutInfo();
         BeanUtils.copyProperties(dto, aboutInfo);
         aboutInfo.setCreateId(currentId);
         aboutInfo.setCreateDate(new Date());
-        aboutInfoDao.insert(aboutInfo);
+        aboutInfoDao.insertSelective(aboutInfo);
         return "建立成功";
     }
+
+    @Override
+    public String removeAboutInfo(String id) {
+        aboutInfoDao.deleteByPrimaryKey(new BigDecimal(id));
+        return "刪除成功";
+    }
+
+
 }
