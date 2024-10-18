@@ -8,15 +8,20 @@ import org.boai.persistence.vo.manual.AboutInfoVo;
 import java.util.List;
 
 public interface AboutInfoService {
+
+    List<AboutInfo> getAll();
+
     /**
-     * Get all about info
+     * Get about info
      *
+     * @param dto params
      * @return list
      */
-    List<AboutInfo> getAboutInfo();
+    List<AboutInfoVo> getAboutInfo(AboutInfoDto dto);
 
     /**
      * paginate search about info
+     *
      * @param dto params
      * @return pageInfo
      */
@@ -24,6 +29,7 @@ public interface AboutInfoService {
 
     /**
      * Get about info all columns
+     *
      * @param id primary key
      * @return aboutInfo
      */
@@ -31,13 +37,23 @@ public interface AboutInfoService {
 
     /**
      * Create about info
+     *
      * @param dto new info
      * @return string
      */
     String createAboutInfo(AboutInfoDto dto);
 
     /**
+     * Modify about info
+     *
+     * @param dto modify params
+     * @return string
+     */
+    String modifyAboutInfo(AboutInfoDto dto);
+
+    /**
      * Remove about info
+     *
      * @param id primary key
      * @return string
      */

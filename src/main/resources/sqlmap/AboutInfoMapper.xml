@@ -92,6 +92,39 @@
             </if>
         </trim>
     </insert>
+    <update id="updateByPrimaryKeySelective">
+        update ABOUT_INFO
+        <set>
+            <if test="title != null">
+                TITLE = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="subtitle != null">
+                SUBTITLE = #{subtitle,jdbcType=VARCHAR},
+            </if>
+            <if test="image != null">
+                IMAGE = #{image,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                CONTENT = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="enable != null">
+                ENABLE = #{enable,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                CREATE_ID = #{createId,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateId != null">
+                UPDATE_ID = #{updateId,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        where ID = #{id,jdbcType=DECIMAL}
+    </update>
     <delete id="deleteByPrimaryKey">
         delete from ABOUT_INFO where id = #{id,jdbcType=DECIMAL}
     </delete>

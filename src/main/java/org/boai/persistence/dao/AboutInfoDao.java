@@ -44,5 +44,7 @@ public interface AboutInfoDao {
 
     int insertSelective(AboutInfo aboutInfo);
 
+    int updateByPrimaryKeySelective(AboutInfo aboutInfo);
+
     int deleteByPrimaryKey(@Param("id") BigDecimal id);
 }

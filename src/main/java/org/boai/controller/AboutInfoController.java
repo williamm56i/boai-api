@@ -21,10 +21,16 @@ public class AboutInfoController {
     @Autowired
     AboutInfoService aboutInfoService;
 
+    @Operation(summary = "查詢生效中的關於我們圖卡資訊")
+    @GetMapping("/getAll")
+    public ResponseEntity<List<AboutInfo>> getAll() {
+        return ResponseEntity.ok(aboutInfoService.getAll());
+    }
+
     @Operation(summary = "查詢關於資訊")
-    @GetMapping("/getAboutInfo")
-    public ResponseEntity<List<AboutInfo>> getAboutInfo() {
-        return ResponseEntity.ok(aboutInfoService.getAboutInfo());
+    @PostMapping("/getAboutInfo")
+    public ResponseEntity<List<AboutInfoVo>> getAboutInfo(@RequestBody AboutInfoDto dto) {
+        return ResponseEntity.ok(aboutInfoService.getAboutInfo(dto));
     }
 
     @Operation(summary = "分頁查詢關於我們")
@@ -39,10 +45,16 @@ public class AboutInfoController {
         return ResponseEntity.ok(aboutInfoService.getAboutInfoDetail(id));
     }
 
-    @Operation(summary = "建立關於資訊")
+    @Operation(summary = "建立關於我們")
     @PostMapping("/createAboutInfo")
     public ResponseEntity<String> createAboutInfo(@RequestBody AboutInfoDto dto) {
         return ResponseEntity.ok(aboutInfoService.createAboutInfo(dto));
+    }
+
+    @Operation(summary = "異動關於我們")
+    @PutMapping("/modifyAboutInfo")
+    public ResponseEntity<String> modifyAboutInfo(@RequestBody AboutInfoDto dto) {
+        return ResponseEntity.ok(aboutInfoService.modifyAboutInfo(dto));
     }
 
     @Operation(summary = "刪除關於資訊")

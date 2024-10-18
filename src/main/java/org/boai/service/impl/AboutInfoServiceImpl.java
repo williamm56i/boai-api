@@ -28,8 +28,13 @@ public class AboutInfoServiceImpl implements AboutInfoService {
     BoaiUserDetailsService userDetailsService;
 
     @Override
-    public List<AboutInfo> getAboutInfo() {
+    public List<AboutInfo> getAll() {
         return aboutInfoDao.selectEnable();
+    }
+
+    @Override
+    public List<AboutInfoVo> getAboutInfo(AboutInfoDto dto) {
+        return aboutInfoDao.selectByTitle(dto.getTitle());
     }
 
     @Override
@@ -53,6 +58,17 @@ public class AboutInfoServiceImpl implements AboutInfoService {
         aboutInfo.setCreateDate(new Date());
         aboutInfoDao.insertSelective(aboutInfo);
         return "建立成功";
+    }
+
+    @Override
+    public String modifyAboutInfo(AboutInfoDto dto) {
+        String currentId = userDetailsService.getUsername();
+        AboutInfo aboutInfo = new AboutInfo();
+        BeanUtils.copyProperties(dto, aboutInfo);
+        aboutInfo.setUpdateId(currentId);
+        aboutInfo.setUpdateDate(new Date());
+        aboutInfoDao.updateByPrimaryKeySelective(aboutInfo);
+        return "異動成功";
     }
 
     @Override
