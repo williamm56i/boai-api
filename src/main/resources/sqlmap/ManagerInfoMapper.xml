@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.boai.persistence.dao.AboutInfoDao">
-    <resultMap id="BaseResultMap" type="org.boai.persistence.vo.AboutInfo">
+<mapper namespace="org.boai.persistence.dao.ManagerInfoDao">
+    <resultMap id="BaseResultMap" type="org.boai.persistence.vo.ManagerInfo">
         <id column="ID" property="id" jdbcType="DECIMAL" />
         <result column="TITLE" property="title" jdbcType="VARCHAR" />
-        <result column="SUBTITLE" property="subtitle" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
         <result column="IMAGE" property="image" jdbcType="VARCHAR" />
-        <result column="CONTENT" property="content" jdbcType="VARCHAR" />
-        <result column="ENABLE" property="enable" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION_1" property="description1" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION_2" property="description2" jdbcType="VARCHAR" />
         <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
         <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
         <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
         <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List">
-        ID, TITLE, SUBTITLE, IMAGE, CONTENT, ENABLE, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
+        ID, TITLE, NAME, IMAGE, DESCRIPTION_1, DESCRIPTION_2, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         select
             <include refid="Base_Column_List" />
-        from ABOUT_INFO
+        from MANAGER_INFO
         where ID = #{id,jdbcType=DECIMAL}
     </select>
-    <select id="selectEnable" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
-            <include refid="Base_Column_List" />
-        from ABOUT_INFO
-        <where>
-            ENABLE = 'Y'
-        </where>
+        ID, TITLE, NAME, DESCRIPTION_1, DESCRIPTION_2, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
+        from MANAGER_INFO
+        order by ID asc
     </select>
     <insert id="insert">
-        insert into ABOUT_INFO ( <include refid="Base_Column_List" /> )
+        insert into MANAGER_INFO ( <include refid="Base_Column_List" /> )
         values (
             #{id,jdbcType=DECIMAL},
             #{title,jdbcType=VARCHAR},
-            #{subtitle,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
             #{image,jdbcType=VARCHAR},
-            #{content,jdbcType=VARCHAR},
-            #{enable,jdbcType=VARCHAR},
+            #{description1,jdbcType=VARCHAR},
+            #{description2,jdbcType=VARCHAR},
             #{createId,jdbcType=VARCHAR},
             #{createDate,jdbcType=TIMESTAMP},
             #{updateId,jdbcType=VARCHAR},
@@ -46,14 +44,14 @@
         )
     </insert>
     <insert id="insertSelective">
-        insert into ABOUT_INFO
+        insert into MANAGER_INFO
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null"> ID, </if>
             <if test="title != null"> TITLE, </if>
-            <if test="subtitle != null"> SUBTITLE, </if>
+            <if test="name != null"> NAME, </if>
             <if test="image != null"> IMAGE, </if>
-            <if test="content != null"> CONTENT, </if>
-            <if test="enable != null"> ENABLE, </if>
+            <if test="description1 != null"> DESCRIPTION_1, </if>
+            <if test="description2 != null"> DESCRIPTION_2, </if>
             <if test="createId != null"> CREATE_ID, </if>
             <if test="createDate != null"> CREATE_DATE, </if>
             <if test="updateId != null"> UPDATE_ID, </if>
@@ -66,17 +64,17 @@
             <if test="title != null">
                 #{title,jdbcType=VARCHAR},
             </if>
-            <if test="subtitle != null">
-                #{subtitle,jdbcType=VARCHAR},
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
             </if>
             <if test="image != null">
                 #{image,jdbcType=VARCHAR},
             </if>
-            <if test="content != null">
-                #{content,jdbcType=VARCHAR},
+            <if test="description1 != null">
+                #{description1,jdbcType=VARCHAR},
             </if>
-            <if test="enable != null">
-                #{enable,jdbcType=VARCHAR},
+            <if test="description2 != null">
+                #{description2,jdbcType=VARCHAR},
             </if>
             <if test="createId != null">
                 #{createId,jdbcType=VARCHAR},
@@ -93,22 +91,22 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective">
-        update ABOUT_INFO
+        update MANAGER_INFO
         <set>
             <if test="title != null">
                 TITLE = #{title,jdbcType=VARCHAR},
             </if>
-            <if test="subtitle != null">
-                SUBTITLE = #{subtitle,jdbcType=VARCHAR},
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
             </if>
             <if test="image != null">
                 IMAGE = #{image,jdbcType=VARCHAR},
             </if>
-            <if test="content != null">
-                CONTENT = #{content,jdbcType=VARCHAR},
+            <if test="description1 != null">
+                DESCRIPTION_1 = #{description1,jdbcType=VARCHAR},
             </if>
-            <if test="enable != null">
-                ENABLE = #{enable,jdbcType=VARCHAR},
+            <if test="description2 != null">
+                DESCRIPTION_2 = #{description2,jdbcType=VARCHAR},
             </if>
             <if test="createId != null">
                 CREATE_ID = #{createId,jdbcType=VARCHAR},
@@ -126,23 +124,22 @@
         where ID = #{id,jdbcType=DECIMAL}
     </update>
     <delete id="deleteByPrimaryKey">
-        delete from ABOUT_INFO where id = #{id,jdbcType=DECIMAL}
+        delete from MANAGER_INFO where id = #{id,jdbcType=DECIMAL}
     </delete>
-    <resultMap id="ResultMap" type="org.boai.persistence.vo.manual.AboutInfoVo">
+    <resultMap id="ResultMap" type="org.boai.persistence.vo.manual.ManagerInfoVo">
         <id column="ID" property="id" jdbcType="DECIMAL" />
         <result column="TITLE" property="title" jdbcType="VARCHAR" />
-        <result column="SUBTITLE" property="subtitle" jdbcType="VARCHAR" />
-        <result column="ENABLE" property="enable" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
     </resultMap>
-    <select id="selectByTitle" resultMap="ResultMap">
+    <select id="selectByName" resultMap="ResultMap">
         select
-        ID, TITLE, SUBTITLE, ENABLE
-        from ABOUT_INFO
+        ID, TITLE, NAME
+        from MANAGER_INFO
         <where>
-            <if test="title != null and title != ''"> TITLE like '%' || #{title,jdbcType=VARCHAR} || '%' </if>
+            <if test="name != null and name != ''"> NAME like '%' || #{name,jdbcType=VARCHAR} || '%' </if>
         </where>
     </select>
     <select id="selectImageByPrimaryKey" resultType="java.lang.String">
-        select IMAGE from ABOUT_INFO where ID = #{id,jdbcType=DECIMAL}
+        select IMAGE from MANAGER_INFO where ID = #{id,jdbcType=DECIMAL}
     </select>
 </mapper>

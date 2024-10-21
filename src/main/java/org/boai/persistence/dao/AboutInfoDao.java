@@ -47,4 +47,6 @@ public interface AboutInfoDao {
     int updateByPrimaryKeySelective(AboutInfo aboutInfo);
 
     int deleteByPrimaryKey(@Param("id") BigDecimal id);
+
+    String selectImageByPrimaryKey(@Param("id") BigDecimal id);
 }

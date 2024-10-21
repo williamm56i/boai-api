@@ -77,5 +77,8 @@ public class AboutInfoServiceImpl implements AboutInfoService {
         return "刪除成功";
     }
 
-
+    @Override
+    public String getImage(String id) {
+        return aboutInfoDao.selectImageByPrimaryKey(new BigDecimal(id));
+    }
 }

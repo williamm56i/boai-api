@@ -62,4 +62,10 @@ public class AboutInfoController {
     public ResponseEntity<String> removeAboutInfo(@PathVariable String id) {
         return ResponseEntity.ok(aboutInfoService.removeAboutInfo(id));
     }
+
+    @Operation(summary = "取得圖片")
+    @GetMapping("/getImage/{id}")
+    public ResponseEntity<String> getImage(@PathVariable String id) {
+        return ResponseEntity.ok(aboutInfoService.getImage(id));
+    }
 }

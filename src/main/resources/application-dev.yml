@@ -6,6 +6,9 @@ spring:
     driver-class-name: org.postgresql.Driver
   application:
     name: boai
+  jackson:
+    time-zone: Asia/Taipei
+    date-format: yyyy/MM/dd HH:mm:ss
 server:
   servlet:
     context-path: /boai

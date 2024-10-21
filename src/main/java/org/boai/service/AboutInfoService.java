@@ -58,4 +58,12 @@ public interface AboutInfoService {
      * @return string
      */
     String removeAboutInfo(String id);
+
+    /**
+     * get image by id
+     *
+     * @param id primary key
+     * @return string
+     */
+    String getImage(String id);
 }
