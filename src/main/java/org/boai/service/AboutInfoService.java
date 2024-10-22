@@ -3,7 +3,6 @@ package org.boai.service;
 import com.github.pagehelper.PageInfo;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.vo.AboutInfo;
-import org.boai.persistence.vo.manual.AboutInfoVo;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public interface AboutInfoService {
      * @param dto params
      * @return list
      */
-    List<AboutInfoVo> getAboutInfo(AboutInfoDto dto);
+    List<AboutInfo> getAboutInfo(AboutInfoDto dto);
 
     /**
      * paginate search about info
@@ -25,7 +24,7 @@ public interface AboutInfoService {
      * @param dto params
      * @return pageInfo
      */
-    PageInfo<AboutInfoVo> paginateAboutInfo(AboutInfoDto dto);
+    PageInfo<AboutInfo> paginateAboutInfo(AboutInfoDto dto);
 
     /**
      * Get about info all columns

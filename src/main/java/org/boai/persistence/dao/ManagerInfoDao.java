@@ -3,7 +3,6 @@ package org.boai.persistence.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.boai.persistence.vo.ManagerInfo;
-import org.boai.persistence.vo.manual.ManagerInfoVo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,7 +24,7 @@ public interface ManagerInfoDao {
      * @param name 姓名
      * @return list
      */
-    List<ManagerInfoVo> selectByName(@Param("name") String name);
+    List<ManagerInfo> selectByName(@Param("name") String name);
 
     /**
      * 以主鍵查詢

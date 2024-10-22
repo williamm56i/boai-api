@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.vo.AboutInfo;
-import org.boai.persistence.vo.manual.AboutInfoVo;
 import org.boai.service.AboutInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,19 +28,19 @@ public class AboutInfoController {
 
     @Operation(summary = "查詢關於資訊")
     @PostMapping("/getAboutInfo")
-    public ResponseEntity<List<AboutInfoVo>> getAboutInfo(@RequestBody AboutInfoDto dto) {
+    public ResponseEntity<List<AboutInfo>> getAboutInfo(@RequestBody AboutInfoDto dto) {
         return ResponseEntity.ok(aboutInfoService.getAboutInfo(dto));
     }
 
     @Operation(summary = "分頁查詢關於我們")
     @PostMapping("/paginateAboutInfo")
-    public ResponseEntity<PageInfo<AboutInfoVo>> paginateAboutInfo(@RequestBody AboutInfoDto dto) {
+    public ResponseEntity<PageInfo<AboutInfo>> paginateAboutInfo(@RequestBody AboutInfoDto dto) {
         return ResponseEntity.ok(aboutInfoService.paginateAboutInfo(dto));
     }
 
     @Operation(summary = "查詢關於我們明細")
-    @GetMapping("/getAboutInfoDetail")
-    public ResponseEntity<AboutInfo> getAboutInfoDetail(@RequestParam("id") String id) {
+    @GetMapping("/getAboutInfoDetail/{id}")
+    public ResponseEntity<AboutInfo> getAboutInfoDetail(@PathVariable String id) {
         return ResponseEntity.ok(aboutInfoService.getAboutInfoDetail(id));
     }
 

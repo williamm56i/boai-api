@@ -2,6 +2,7 @@ package org.boai.utils;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -90,32 +91,74 @@ public class DateUtils {
     }
 
     /**
-     * Convert date time to 0:00:00
+     * Convert date time to 0:00:00.0
      *
      * @param date Date
      * @return Date
      */
     public static Date convertStartDate(Date date) {
+        if (date == null) {
+            return null;
+        }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
         return cal.getTime();
     }
 
     /**
-     * Convert date time to 23:59:59
+     * Convert date time to 23:59:59.999
      *
      * @param date Date
      * @return Date
      */
     public static Date convertEndDate(Date date) {
+        if (date == null) {
+            return null;
+        }
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
+        return cal.getTime();
+    }
+
+    /**
+     * Convert second to 0.0
+     *
+     * @param date Date
+     * @return Date
+     */
+    public static Date convertStartSecond(Date date) {
+        if (date == null) {
+            return null;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
+    }
+
+    /**
+     * Convert second to 59.999
+     *
+     * @param date Date
+     * @return Date
+     */
+    public static Date convertEndSecond(Date date) {
+        if (date == null) {
+            return null;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.SECOND, 59);
+        cal.set(Calendar.MILLISECOND, 999);
         return cal.getTime();
     }
 }

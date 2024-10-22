@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.boai.controller.dto.ManagerInfoDto;
 import org.boai.persistence.vo.ManagerInfo;
-import org.boai.persistence.vo.manual.ManagerInfoVo;
 import org.boai.service.ManagerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +27,13 @@ public class ManagerInfoController {
 
     @Operation(summary = "查詢經營團隊")
     @PostMapping("/getManagerInfo")
-    public ResponseEntity<List<ManagerInfoVo>> getManagerInfo(@RequestBody ManagerInfoDto dto) {
+    public ResponseEntity<List<ManagerInfo>> getManagerInfo(@RequestBody ManagerInfoDto dto) {
         return ResponseEntity.ok(managerInfoService.getManagerInfo(dto));
     }
 
     @Operation(summary = "查詢經營團隊明細")
-    @GetMapping("/getManagerInfoDetail")
-    public ResponseEntity<ManagerInfo> getManagerInfoDetail(@RequestParam("id") String id) {
+    @GetMapping("/getManagerInfoDetail/{id}")
+    public ResponseEntity<ManagerInfo> getManagerInfoDetail(@PathVariable String id) {
         return ResponseEntity.ok(managerInfoService.getManagerInfoDetail(id));
     }
 

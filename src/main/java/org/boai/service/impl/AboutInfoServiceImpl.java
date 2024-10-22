@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.dao.AboutInfoDao;
 import org.boai.persistence.vo.AboutInfo;
-import org.boai.persistence.vo.manual.AboutInfoVo;
 import org.boai.security.BoaiUserDetailsService;
 import org.boai.service.AboutInfoService;
 import org.springframework.beans.BeanUtils;
@@ -33,12 +32,12 @@ public class AboutInfoServiceImpl implements AboutInfoService {
     }
 
     @Override
-    public List<AboutInfoVo> getAboutInfo(AboutInfoDto dto) {
+    public List<AboutInfo> getAboutInfo(AboutInfoDto dto) {
         return aboutInfoDao.selectByTitle(dto.getTitle());
     }
 
     @Override
-    public PageInfo<AboutInfoVo> paginateAboutInfo(AboutInfoDto dto) {
+    public PageInfo<AboutInfo> paginateAboutInfo(AboutInfoDto dto) {
         String sort = StringUtils.isNotEmpty(dto.getOrderString()) ? dto.getOrderString() : "ID asc";
         return PageHelper.startPage(dto.getPageNum(), dto.getPageSize(), sort)
                 .doSelectPageInfo(() -> aboutInfoDao.selectByTitle(dto.getTitle()));

@@ -128,13 +128,7 @@
     <delete id="deleteByPrimaryKey">
         delete from ABOUT_INFO where id = #{id,jdbcType=DECIMAL}
     </delete>
-    <resultMap id="ResultMap" type="org.boai.persistence.vo.manual.AboutInfoVo">
-        <id column="ID" property="id" jdbcType="DECIMAL" />
-        <result column="TITLE" property="title" jdbcType="VARCHAR" />
-        <result column="SUBTITLE" property="subtitle" jdbcType="VARCHAR" />
-        <result column="ENABLE" property="enable" jdbcType="VARCHAR" />
-    </resultMap>
-    <select id="selectByTitle" resultMap="ResultMap">
+    <select id="selectByTitle" resultMap="BaseResultMap">
         select
         ID, TITLE, SUBTITLE, ENABLE
         from ABOUT_INFO

@@ -2,7 +2,6 @@ package org.boai.service;
 
 import org.boai.controller.dto.ManagerInfoDto;
 import org.boai.persistence.vo.ManagerInfo;
-import org.boai.persistence.vo.manual.ManagerInfoVo;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface ManagerInfoService {
      * @param dto params
      * @return list
      */
-    List<ManagerInfoVo> getManagerInfo(ManagerInfoDto dto);
+    List<ManagerInfo> getManagerInfo(ManagerInfoDto dto);
 
     /**
      * Get Manager info all columns

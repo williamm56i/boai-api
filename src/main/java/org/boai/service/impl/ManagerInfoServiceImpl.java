@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.boai.controller.dto.ManagerInfoDto;
 import org.boai.persistence.dao.ManagerInfoDao;
 import org.boai.persistence.vo.ManagerInfo;
-import org.boai.persistence.vo.manual.ManagerInfoVo;
 import org.boai.security.BoaiUserDetailsService;
 import org.boai.service.ManagerInfoService;
 import org.springframework.beans.BeanUtils;
@@ -30,7 +29,7 @@ public class ManagerInfoServiceImpl implements ManagerInfoService {
     }
 
     @Override
-    public List<ManagerInfoVo> getManagerInfo(ManagerInfoDto dto) {
+    public List<ManagerInfo> getManagerInfo(ManagerInfoDto dto) {
         return managerInfoDao.selectByName(dto.getName());
     }
 
