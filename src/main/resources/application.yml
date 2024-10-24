@@ -15,6 +15,11 @@ server:
     context-path: /boai
 mybatis:
   mapper-locations: classpath:/sqlmap/*.xml
+jwt:
+  token-expire-time: 3600000
+recaptcha:
+  recaptcha-verify-url: https://www.google.com/recaptcha/api/siteverify
+  recaptcha-secret: 6Ld6omkqAAAAADMOgoxWdlJj30hJ26JXWhT9bvG6
 springdoc:
   api-docs:
     enabled: true

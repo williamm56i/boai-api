@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -15,7 +14,7 @@ public class JwtUtils {
 
     private static Key secretKey;
 
-    public static String generate(String username, Object roleList) {
+    public static String generate(String username, Object roleList, long tokenExpireTime) {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         Key secretKey = generalKey();
         Map<String, Object> claims = new HashMap<>();
@@ -24,14 +23,14 @@ public class JwtUtils {
                 .signWith(secretKey, signatureAlgorithm)
                 .setClaims(claims)
                 .setSubject(username)
-                .setExpiration(getExpireDate());
+                .setExpiration(getExpireDate(tokenExpireTime));
         return builder.compact();
     }
 
-    public static String refresh(String jwt) {
+    public static String refresh(String jwt, long tokenExpireTime) {
         Claims claims = parseJwt(jwt);
         if (claims != null && claims.getSubject() != null && claims.get("roles") != null) {
-            return generate(claims.getSubject(), claims.get("roles"));
+            return generate(claims.getSubject(), claims.get("roles"), tokenExpireTime);
         }
         return null;
     }
@@ -53,9 +52,8 @@ public class JwtUtils {
         return secretKey;
     }
 
-    private static Date getExpireDate() {
+    private static Date getExpireDate(long tokenExpireTime) {
         long current = System.currentTimeMillis();
-        long tokenExpireTime = 60 * 60 * 1000;
         long exp = current + tokenExpireTime;
         Date expireDate = new Date(exp);
         log.info("expireDate: " + expireDate);

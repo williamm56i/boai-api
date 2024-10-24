@@ -2,8 +2,8 @@ package org.boai.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.boai.controller.dto.AboutInfoDto;
 import org.boai.controller.dto.ActivityInfoDto;
+import org.boai.controller.dto.ApplyDto;
 import org.boai.persistence.vo.ActivityInfo;
 import org.boai.service.ActivityInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +54,11 @@ public class ActivityInfoController {
     @DeleteMapping("/removeActivityInfo/{id}")
     public ResponseEntity<String> removeActivityInfo(@PathVariable String id) {
         return ResponseEntity.ok(activityInfoService.removeActivityInfo(id));
+    }
+
+    @Operation(summary = "報名")
+    @PostMapping("/apply")
+    public ResponseEntity<String> apply(@RequestBody ApplyDto dto) {
+        return ResponseEntity.ok(activityInfoService.apply(dto));
     }
 }

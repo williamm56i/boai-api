@@ -1,5 +1,6 @@
 package org.boai.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.boai.annotation.Pims;
 import org.boai.persistence.vo.SysCode;
 import org.boai.service.SystemService;
@@ -42,5 +43,11 @@ public class SystemController {
     @GetMapping("/getSysCodeAll")
     public ResponseEntity<List<SysCode>> getSysCodeAll() {
         return ResponseEntity.ok(systemService.getSysCodeAll());
+    }
+
+    @Operation(summary = "機器人驗證")
+    @PostMapping("/verifyRecaptcha")
+    public String verifyRecaptcha(@RequestParam("token") String token) throws JsonProcessingException {
+        return systemService.verifyRecaptcha(token);
     }
 }

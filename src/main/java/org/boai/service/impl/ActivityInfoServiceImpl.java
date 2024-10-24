@@ -2,9 +2,11 @@ package org.boai.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.boai.controller.dto.ActivityInfoDto;
+import org.boai.controller.dto.ApplyDto;
 import org.boai.persistence.dao.ActivityInfoDao;
-import org.boai.persistence.vo.AboutInfo;
+import org.boai.persistence.dao.ApplyInfoDao;
 import org.boai.persistence.vo.ActivityInfo;
+import org.boai.persistence.vo.ApplyInfo;
 import org.boai.security.BoaiUserDetailsService;
 import org.boai.service.ActivityInfoService;
 import org.boai.utils.DateUtils;
@@ -22,6 +24,8 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
 
     @Autowired
     ActivityInfoDao activityInfoDao;
+    @Autowired
+    ApplyInfoDao applyInfoDao;
     @Autowired
     BoaiUserDetailsService userDetailsService;
 
@@ -70,5 +74,14 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     public String removeActivityInfo(String id) {
         activityInfoDao.deleteByPrimaryKey(new BigDecimal(id));
         return "刪除成功";
+    }
+
+    @Override
+    public String apply(ApplyDto dto) {
+        ApplyInfo applyInfo = new ApplyInfo();
+        BeanUtils.copyProperties(dto, applyInfo);
+        applyInfo.setApplyDate(new Date());
+        applyInfoDao.insertSelective(applyInfo);
+        return "報名成功";
     }
 }
