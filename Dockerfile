@@ -1,4 +1,4 @@
-FROM maven:3.8.4-openjdk-18 AS build
+FROM openjdk:18
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
