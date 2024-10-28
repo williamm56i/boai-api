@@ -69,6 +69,7 @@ public class SystemServiceImpl implements SystemService {
     public String verifyRecaptcha(String token) throws JsonProcessingException {
         String requestUrl = recaptchaVerifyUrl + "?secret=" + recaptchaSecret + "&response=" + token;
         String jsonResult = HttpUtils.post(requestUrl, null);
+        log.info(jsonResult);
         TypeFactory typeFactory = objectMapper.getTypeFactory();
         JavaType mapType = typeFactory.constructMapType(Map.class, String.class, Object.class);
         Map<String, Object> resultMap = objectMapper.readValue(jsonResult, mapType);
