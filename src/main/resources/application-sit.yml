@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://172.17.0.3:5432/boai
+    username: postgres
+    password: zlsh30227
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: boai
+  jackson:
+    time-zone: Asia/Taipei
+    date-format: yyyy/MM/dd HH:mm:ss
+server:
+  servlet:
+    context-path: /boai
+mybatis:
+  mapper-locations: classpath:/sqlmap/*.xml
+jwt:
+  token-expire-time: 21600000
+recaptcha:
+  recaptcha-verify-url: https://www.google.com/recaptcha/api/siteverify
+  recaptcha-secret: 6Ld6omkqAAAAADMOgoxWdlJj30hJ26JXWhT9bvG6
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  webjars:
+    prefix: ""
