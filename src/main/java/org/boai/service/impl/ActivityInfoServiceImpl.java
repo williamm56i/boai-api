@@ -72,6 +72,9 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
 
     @Override
     public String removeActivityInfo(String id) {
+        if (applyInfoDao.countByActivityId(new BigDecimal(id)) > 0) {
+            return "已有報名資訊不可刪除";
+        }
         activityInfoDao.deleteByPrimaryKey(new BigDecimal(id));
         return "刪除成功";
     }
@@ -83,5 +86,10 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
         applyInfo.setApplyDate(new Date());
         applyInfoDao.insertSelective(applyInfo);
         return "報名成功";
+    }
+
+    @Override
+    public ApplyInfo getApplyInfo(ApplyDto dto) {
+        return applyInfoDao.selectApplyInfo(dto.getActivityId(), dto.getApplyName());
     }
 }

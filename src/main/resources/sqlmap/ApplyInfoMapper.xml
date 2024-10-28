@@ -90,4 +90,13 @@
             </if>
         </trim>
     </insert>
+    <select id="countByActivityId" resultType="java.lang.Integer">
+        select count(*) from APPLY_INFO where ACTIVITY_ID = #{activityId,jdbcType=DECIMAL}
+    </select>
+    <select id="selectApplyInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from APPLY_INFO
+        where ACTIVITY_ID = #{activityId,jdbcType=DECIMAL} and APPLY_NAME = #{applyName,jdbcType=VARCHAR}
+    </select>
 </mapper>

@@ -3,6 +3,7 @@ package org.boai.service;
 import org.boai.controller.dto.ActivityInfoDto;
 import org.boai.controller.dto.ApplyDto;
 import org.boai.persistence.vo.ActivityInfo;
+import org.boai.persistence.vo.ApplyInfo;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface ActivityInfoService {
     String removeActivityInfo(String id);
 
     String apply(ApplyDto dto);
+
+    ApplyInfo getApplyInfo(ApplyDto dto);
 }

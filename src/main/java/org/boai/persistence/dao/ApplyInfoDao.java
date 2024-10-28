@@ -14,4 +14,8 @@ public interface ApplyInfoDao {
     int insert(ApplyInfo applyInfo);
 
     int insertSelective(ApplyInfo applyInfo);
+
+    int countByActivityId(@Param("activityId") BigDecimal activityId);
+
+    ApplyInfo selectApplyInfo(@Param("activityId") BigDecimal activityId, @Param("applyName") String applyName);
 }

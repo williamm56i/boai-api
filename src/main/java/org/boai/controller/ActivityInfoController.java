@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.boai.controller.dto.ActivityInfoDto;
 import org.boai.controller.dto.ApplyDto;
 import org.boai.persistence.vo.ActivityInfo;
+import org.boai.persistence.vo.ApplyInfo;
 import org.boai.service.ActivityInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -60,5 +61,11 @@ public class ActivityInfoController {
     @PostMapping("/apply")
     public ResponseEntity<String> apply(@RequestBody ApplyDto dto) {
         return ResponseEntity.ok(activityInfoService.apply(dto));
+    }
+
+    @Operation(summary = "報名查詢")
+    @PostMapping("/getApplyInfo")
+    public ResponseEntity<ApplyInfo> getApplyInfo(@RequestBody ApplyDto dto) {
+        return ResponseEntity.ok(activityInfoService.getApplyInfo(dto));
     }
 }
