@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -25,12 +27,12 @@ public class ManagerInfoServiceImpl implements ManagerInfoService {
 
     @Override
     public List<ManagerInfo> getAll() {
-        return managerInfoDao.selectAll();
+        return managerInfoDao.selectAll().stream().sorted(Comparator.comparing(ManagerInfo::getId, Comparator.nullsLast(Comparator.naturalOrder()))).toList();
     }
 
     @Override
     public List<ManagerInfo> getManagerInfo(ManagerInfoDto dto) {
-        return managerInfoDao.selectByName(dto.getName());
+        return managerInfoDao.selectByName(dto.getName()).stream().sorted(Comparator.comparing(ManagerInfo::getId, Comparator.nullsLast(Comparator.naturalOrder()))).toList();
     }
 
     @Override

@@ -13,6 +13,11 @@ spring:
 server:
   servlet:
     context-path: /boai
+jasypt:
+  encryptor:
+    password: boai
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
 mybatis:
   mapper-locations: classpath:/sqlmap/*.xml
 jwt:

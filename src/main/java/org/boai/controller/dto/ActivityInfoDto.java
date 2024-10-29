@@ -22,6 +22,9 @@ public class ActivityInfoDto {
     String activityGroup;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
+    Date activityDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")
     Date applyStartDate;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX")

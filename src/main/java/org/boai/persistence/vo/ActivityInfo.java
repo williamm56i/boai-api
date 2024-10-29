@@ -24,6 +24,8 @@ public class ActivityInfo {
 
     String activityGroup;
 
+    Date activityDate;
+
     String createId;
 
     Date createDate;

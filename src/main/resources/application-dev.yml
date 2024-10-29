@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/boai
     username: postgres
-    password: zlsh30227
+    password: ENC(gbwdgQkdzi/M1+FqPG5xD5utDdnC+o7w)
     driver-class-name: org.postgresql.Driver
   application:
     name: boai
@@ -12,6 +12,11 @@ spring:
 server:
   servlet:
     context-path: /boai
+jasypt:
+  encryptor:
+    password: boai
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
 mybatis:
   mapper-locations: classpath:/sqlmap/*.xml
 jwt:

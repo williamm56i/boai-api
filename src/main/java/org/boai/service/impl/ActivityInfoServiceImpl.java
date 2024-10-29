@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -31,12 +32,12 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
 
     @Override
     public List<ActivityInfo> getAll() {
-        return activityInfoDao.selectAll();
+        return activityInfoDao.selectAll().stream().sorted(Comparator.comparing(ActivityInfo::getActivityDate, Comparator.nullsLast(Comparator.reverseOrder()))).toList();
     }
 
     @Override
     public List<ActivityInfo> getActivityInfo(ActivityInfoDto dto) {
-        return activityInfoDao.selectByTitle(dto.getTitle());
+        return activityInfoDao.selectByTitle(dto.getTitle()).stream().sorted(Comparator.comparing(ActivityInfo::getActivityDate, Comparator.nullsLast(Comparator.reverseOrder()))).toList();
     }
 
     @Override

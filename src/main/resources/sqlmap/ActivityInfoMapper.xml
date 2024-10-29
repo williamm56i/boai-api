@@ -10,13 +10,14 @@
         <result column="APPLY_START_DATE" property="applyStartDate" jdbcType="TIMESTAMP" />
         <result column="APPLY_END_DATE" property="applyEndDate" jdbcType="TIMESTAMP" />
         <result column="ACTIVITY_GROUP" property="activityGroup" jdbcType="VARCHAR" />
+        <result column="ACTIVITY_DATE" property="activityDate" jdbcType="TIMESTAMP" />
         <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
         <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
         <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
         <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List">
-        ID, TITLE, SUBTITLE, IMAGE, CONTENT, APPLY_START_DATE, APPLY_END_DATE, ACTIVITY_GROUP, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
+        ID, TITLE, SUBTITLE, IMAGE, CONTENT, APPLY_START_DATE, APPLY_END_DATE, ACTIVITY_GROUP, ACTIVITY_DATE, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
         select
@@ -40,6 +41,7 @@
             #{applyStartDate,jdbcType=TIMESTAMP},
             #{applyEndDate,jdbcType=TIMESTAMP},
             #{activityGroup,jdbcType=VARCHAR},
+            #{activityDate,jdbcType=TIMESTAMP},
             #{createId,jdbcType=VARCHAR},
             #{createDate,jdbcType=TIMESTAMP},
             #{updateId,jdbcType=VARCHAR},
@@ -57,6 +59,7 @@
             <if test="applyStartDate != null"> APPLY_START_DATE, </if>
             <if test="applyEndDate != null"> APPLY_END_DATE, </if>
             <if test="activityGroup != null"> ACTIVITY_GROUP, </if>
+            <if test="activityDate != null"> ACTIVITY_DATE, </if>
             <if test="createId != null"> CREATE_ID, </if>
             <if test="createDate != null"> CREATE_DATE, </if>
             <if test="updateId != null"> UPDATE_ID, </if>
@@ -86,6 +89,9 @@
             </if>
             <if test="activityGroup != null">
                 #{activityGroup,jdbcType=VARCHAR},
+            </if>
+            <if test="activityDate != null">
+                #{activityDate,jdbcType=TIMESTAMP},
             </if>
             <if test="createId != null">
                 #{createId,jdbcType=VARCHAR},
@@ -125,6 +131,9 @@
             <if test="activityGroup != null">
                 ACTIVITY_GROUP = #{activityGroup,jdbcType=VARCHAR},
             </if>
+            <if test="activityDate != null">
+                ACTIVITY_DATE = #{activityDate,jdbcType=TIMESTAMP},
+            </if>
             <if test="createId != null">
                 CREATE_ID = #{createId,jdbcType=VARCHAR},
             </if>
@@ -145,7 +154,7 @@
     </delete>
     <select id="selectByTitle" resultMap="BaseResultMap">
         select
-        ID, TITLE, SUBTITLE
+        ID, TITLE, SUBTITLE, ACTIVITY_DATE
         from ACTIVITY_INFO
         <where>
             <if test="title != null and title != ''"> TITLE like '%' || #{title,jdbcType=VARCHAR} || '%' </if>

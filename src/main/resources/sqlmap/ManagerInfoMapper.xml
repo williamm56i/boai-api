@@ -26,7 +26,6 @@
         select
         ID, TITLE, NAME, DESCRIPTION_1, DESCRIPTION_2, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
         from MANAGER_INFO
-        order by ID asc
     </select>
     <insert id="insert">
         insert into MANAGER_INFO ( <include refid="Base_Column_List" /> )
