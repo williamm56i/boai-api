@@ -3,6 +3,7 @@ package org.boai.persistence.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.boai.persistence.vo.ActivityInfo;
+import org.boai.persistence.vo.ApplyInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -43,4 +44,5 @@ public interface ActivityInfoDao {
     int deleteByPrimaryKey(@Param("id") BigDecimal id);
 
     String selectImageByPrimaryKey(@Param("id") BigDecimal id);
+
 }

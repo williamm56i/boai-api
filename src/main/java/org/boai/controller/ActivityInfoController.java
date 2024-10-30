@@ -3,12 +3,11 @@ package org.boai.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.boai.controller.dto.ActivityInfoDto;
-import org.boai.controller.dto.ApplyDto;
 import org.boai.persistence.vo.ActivityInfo;
-import org.boai.persistence.vo.ApplyInfo;
 import org.boai.service.ActivityInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +28,7 @@ public class ActivityInfoController {
 
     @Operation(summary = "查詢所有活動資訊")
     @PostMapping("/getActivityInfo")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<ActivityInfo>> getActivityInfo(@RequestBody ActivityInfoDto dto) {
         return ResponseEntity.ok(activityInfoService.getActivityInfo(dto));
     }
@@ -41,31 +41,23 @@ public class ActivityInfoController {
 
     @Operation(summary = "新增活動資訊")
     @PostMapping("/createActivityInfo")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> createActivityInfo(@RequestBody ActivityInfoDto dto) {
         return ResponseEntity.ok(activityInfoService.createActivityInfo(dto));
     }
 
     @Operation(summary = "異動活動資訊")
     @PutMapping("/modifyActivityInfo")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> modifyActivityInfo(@RequestBody ActivityInfoDto dto) {
         return ResponseEntity.ok(activityInfoService.modifyActivityInfo(dto));
     }
 
     @Operation(summary = "刪除活動資訊")
     @DeleteMapping("/removeActivityInfo/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> removeActivityInfo(@PathVariable String id) {
         return ResponseEntity.ok(activityInfoService.removeActivityInfo(id));
     }
 
-    @Operation(summary = "報名")
-    @PostMapping("/apply")
-    public ResponseEntity<String> apply(@RequestBody ApplyDto dto) {
-        return ResponseEntity.ok(activityInfoService.apply(dto));
-    }
-
-    @Operation(summary = "報名查詢")
-    @PostMapping("/getApplyInfo")
-    public ResponseEntity<ApplyInfo> getApplyInfo(@RequestBody ApplyDto dto) {
-        return ResponseEntity.ok(activityInfoService.getApplyInfo(dto));
-    }
 }

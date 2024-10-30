@@ -17,5 +17,5 @@ public interface ApplyInfoDao {
 
     int countByActivityId(@Param("activityId") BigDecimal activityId);
 
-    ApplyInfo selectApplyInfo(@Param("activityId") BigDecimal activityId, @Param("applyName") String applyName);
+    List<ApplyInfo> selectApplyInfo(@Param("activityId") BigDecimal activityId, @Param("applyName") String applyName);
 }

@@ -20,8 +20,4 @@ public interface ActivityInfoService {
     String modifyActivityInfo(ActivityInfoDto dto);
 
     String removeActivityInfo(String id);
-
-    String apply(ApplyDto dto);
-
-    ApplyInfo getApplyInfo(ApplyDto dto);
 }

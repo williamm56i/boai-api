@@ -79,18 +79,4 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
         activityInfoDao.deleteByPrimaryKey(new BigDecimal(id));
         return "刪除成功";
     }
-
-    @Override
-    public String apply(ApplyDto dto) {
-        ApplyInfo applyInfo = new ApplyInfo();
-        BeanUtils.copyProperties(dto, applyInfo);
-        applyInfo.setApplyDate(new Date());
-        applyInfoDao.insertSelective(applyInfo);
-        return "報名成功";
-    }
-
-    @Override
-    public ApplyInfo getApplyInfo(ApplyDto dto) {
-        return applyInfoDao.selectApplyInfo(dto.getActivityId(), dto.getApplyName());
-    }
 }
