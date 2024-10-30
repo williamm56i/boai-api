@@ -2,7 +2,6 @@ package org.boai.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.boai.controller.dto.ApplyDto;
-import org.boai.persistence.dao.ActivityInfoDao;
 import org.boai.persistence.dao.ApplyInfoDao;
 import org.boai.persistence.vo.ApplyInfo;
 import org.boai.service.ApplyInfoService;
@@ -37,7 +36,7 @@ public class ApplyInfoServiceImpl implements ApplyInfoService {
     }
 
     @Override
-    public List<ApplyInfo> getActivityApplyInfo(BigDecimal activityId) {
-        return applyInfoDao.selectApplyInfo(activityId, null);
+    public List<ApplyInfo> getActivityApplyInfo(String activityId) {
+        return applyInfoDao.selectApplyInfo(new BigDecimal(activityId), null);
     }
 }

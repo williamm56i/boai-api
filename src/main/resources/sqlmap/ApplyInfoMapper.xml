@@ -97,6 +97,9 @@
         select
         <include refid="Base_Column_List" />
         from APPLY_INFO
-        where ACTIVITY_ID = #{activityId,jdbcType=DECIMAL} and APPLY_NAME = #{applyName,jdbcType=VARCHAR}
+        <where>
+            <if test="activityId != null and activityId != ''"> ACTIVITY_ID = #{activityId,jdbcType=DECIMAL} </if>
+            <if test="applyName != null and applyName != ''"> and APPLY_NAME = #{applyName,jdbcType=VARCHAR} </if>
+        </where>
     </select>
 </mapper>
