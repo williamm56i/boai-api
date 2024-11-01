@@ -9,7 +9,7 @@ public interface SystemService {
 
     String getTest(String name);
 
-    String generateToken(String account);
+    String generateToken(String account, String password);
 
     String refreshToken(String jwt);
 

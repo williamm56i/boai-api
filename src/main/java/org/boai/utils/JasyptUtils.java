@@ -10,4 +10,10 @@ public class JasyptUtils {
         encryptor.setPassword(password);
         return PropertyValueEncryptionUtils.encrypt(content, encryptor);
     }
+
+    public static String decrypt(String encContent, String password) {
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword(password);
+        return PropertyValueEncryptionUtils.decrypt(encContent, encryptor);
+    }
 }

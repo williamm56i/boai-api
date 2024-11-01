@@ -2,6 +2,7 @@ package org.boai.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.boai.annotation.Pims;
+import org.boai.controller.dto.LoginDto;
 import org.boai.persistence.vo.SysCode;
 import org.boai.service.SystemService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,9 +29,9 @@ public class SystemController {
     }
 
     @Operation(summary = "生成JWT")
-    @GetMapping("/generateToken")
-    public String generateToken(@RequestParam("account") String account) {
-        return systemService.generateToken(account);
+    @PostMapping("/generateToken")
+    public String generateToken(@RequestBody LoginDto dto) {
+        return systemService.generateToken(dto.getAccount(), dto.getPassword());
     }
 
     @Operation(summary = "刷新JWT")

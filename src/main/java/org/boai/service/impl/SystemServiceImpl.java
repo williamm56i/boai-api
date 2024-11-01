@@ -5,12 +5,15 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.boai.persistence.dao.SysCodeDao;
 import org.boai.persistence.dao.SysRelUserRoleDao;
 import org.boai.persistence.dao.SysUserDao;
 import org.boai.persistence.vo.SysCode;
+import org.boai.persistence.vo.SysUser;
 import org.boai.service.SystemService;
 import org.boai.utils.HttpUtils;
+import org.boai.utils.JasyptUtils;
 import org.boai.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.boai.utils.JasyptUtils.decrypt;
 
 @Service
 @Slf4j
@@ -39,6 +44,8 @@ public class SystemServiceImpl implements SystemService {
     String recaptchaVerifyUrl;
     @Value("${recaptcha.recaptcha-secret}")
     String recaptchaSecret;
+    @Value("${jasypt.encryptor.password}")
+    String decryptCode;
 
     @Override
     public String getTest(String name) {
@@ -46,8 +53,16 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public String generateToken(String account) {
-        if (sysUserDao.selectByPrimaryKey(account) != null) {
+    public String generateToken(String account, String password) {
+        SysUser sysUser = sysUserDao.selectByPrimaryKey(account);
+        if (sysUser != null) {
+            if (!StringUtils.equals(account, "GUEST")) {
+                String pwd = sysUser.getPassword();
+                String code = JasyptUtils.decrypt(pwd, decryptCode);
+                if (!StringUtils.equals(password, code)) {
+                    throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+                }
+            }
             List<String> roleList = sysRelUserRoleDao.selectRole(account);
             return JwtUtils.generate(account, roleList, tokenExpireTime);
         } else {

@@ -1,120 +1,143 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.boai.persistence.dao.SysUserDao">
-    <resultMap id="BaseResultMap" type="org.boai.persistence.vo.SysUser">
-        <id column="ACCOUNT" property="account" jdbcType="VARCHAR" />
-        <id column="USER_NAME" property="userName" jdbcType="VARCHAR" />
-        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
-        <result column="CREATE_ID" property="createId" jdbcType="VARCHAR" />
-        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
-        <result column="UPDATE_ID" property="updateId" jdbcType="VARCHAR" />
-        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
-    </resultMap>
-    <sql id="Base_Column_List">
-        ACCOUNT, USER_NAME, EMAIL, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
-    </sql>
-    <insert id="insertSelective" parameterType="org.boai.persistence.vo.SysUser">
-        insert into SYS_USER
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="account != null">
-                ACCOUNT,
-            </if>
-            <if test="userName != null">
-                USER_NAME,
-            </if>
-            <if test="email != null">
-                EMAIL,
-            </if>
-            <if test="createId != null">
-                CREATE_ID,
-            </if>
-            <if test="createDate != null">
-                CREATE_DATE,
-            </if>
-            <if test="updateId != null">
-                UPDATE_ID,
-            </if>
-            <if test="updateDate != null">
-                UPDATE_DATE,
-            </if>
-        </trim>
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="account != null">
-                ACCOUNT = #{account,jdbcType=VARCHAR},
-            </if>
-            <if test="userName != null">
-                USER_NAME = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null">
-                EMAIL = #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="createId != null">
-                CREATE_ID = #{createId,jdbcType=VARCHAR},
-            </if>
-            <if test="createDate != null">
-                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateId != null">
-                UPDATE_ID = #{updateId,jdbcType=VARCHAR},
-            </if>
-            <if test="updateDate != null">
-                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.boai.persistence.vo.SysUser">
-        update SYS_USER
-        <set>
-            <if test="account != null">
-                ACCOUNT = #{account,jdbcType=VARCHAR},
-            </if>
-            <if test="userName != null">
-                USER_NAME = #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="email != null">
-                EMAIL = #{email,jdbcType=VARCHAR},
-            </if>
-            <if test="createId != null">
-                CREATE_ID = #{createId,jdbcType=VARCHAR},
-            </if>
-            <if test="createDate != null">
-                CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateId != null">
-                UPDATE_ID = #{updateId,jdbcType=VARCHAR},
-            </if>
-            <if test="updateDate != null">
-                UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        <where>
-            ACCOUNT = #{account,jdbcType=VARCHAR}
-        </where>
-    </update>
-    <delete id="deleteByPrimaryKey">
-        delete from SYS_USER where ACCOUNT = #{account,jdbcType=VARCHAR}
-    </delete>
-    <select id="selectAll" resultMap="BaseResultMap">
-        select
-            <include refid="Base_Column_List" />
-        from SYS_USER
-    </select>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-        select
-            <include refid="Base_Column_List" />
-        from SYS_USER
-        <where>
-            ACCOUNT = #{account,jdbcType=VARCHAR}
-        </where>
-    </select>
-    <select id="selectByConditions" resultMap="BaseResultMap">
-        select
-            <include refid="Base_Column_List" />
-        from SYS_USER
-        <where>
-            <if test="account != null and account != ''"> ACCOUNT = #{account,jdbcType=VARCHAR} </if>
-            <if test="userName != null and userName != ''"> and USER_NAME = #{userName,jdbcType=VARCHAR} </if>
-            <if test="email != null and email != ''"> and EMAIL = #{email,jdbcType=VARCHAR} </if>
-        </where>
-    </select>
+  <resultMap id="BaseResultMap" type="org.boai.persistence.vo.SysUser">
+    <id column="account" jdbcType="VARCHAR" property="account" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    account, user_name, email, create_id, create_date, update_id, update_date, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_user
+    where account = #{account,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.boai.persistence.vo.SysUser">
+    insert into sys_user (account, user_name, email, 
+      create_id, create_date, update_id, 
+      update_date, password)
+    values (#{account,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{updateId,jdbcType=VARCHAR}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{password,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.boai.persistence.vo.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        account,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.boai.persistence.vo.SysUser">
+    update sys_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account = #{account,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.boai.persistence.vo.SysUser">
+    update sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      password = #{password,jdbcType=VARCHAR}
+    where account = #{account,jdbcType=VARCHAR}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_USER
+  </select>
+  <select id="selectByConditions" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_USER
+    <where>
+      <if test="account != null and account != ''"> ACCOUNT = #{account,jdbcType=VARCHAR} </if>
+      <if test="userName != null and userName != ''"> and USER_NAME = #{userName,jdbcType=VARCHAR} </if>
+      <if test="email != null and email != ''"> and EMAIL = #{email,jdbcType=VARCHAR} </if>
+    </where>
+  </select>
 </mapper>

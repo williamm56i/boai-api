@@ -20,4 +20,6 @@ public class SysUser {
     String updateId;
 
     Date updateDate;
+
+    private String password;
 }
