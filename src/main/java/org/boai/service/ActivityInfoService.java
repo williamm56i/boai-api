@@ -20,4 +20,12 @@ public interface ActivityInfoService {
     String modifyActivityInfo(ActivityInfoDto dto);
 
     String removeActivityInfo(String id);
+
+    /**
+     * get image by id
+     *
+     * @param id primary key
+     * @return string
+     */
+    String getImage(String id);
 }

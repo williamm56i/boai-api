@@ -27,7 +27,7 @@
     </select>
     <select id="selectAll" resultMap="BaseResultMap">
         select
-            <include refid="Base_Column_List" />
+        ID, TITLE, SUBTITLE, CONTENT, ACTIVITY_GROUP, ACTIVITY_DATE
         from ACTIVITY_INFO
     </select>
     <insert id="insert">

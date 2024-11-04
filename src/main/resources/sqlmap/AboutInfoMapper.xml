@@ -24,7 +24,7 @@
     </select>
     <select id="selectEnable" resultMap="BaseResultMap">
         select
-            <include refid="Base_Column_List" />
+            ID, TITLE, SUBTITLE, CONTENT
         from ABOUT_INFO
         <where>
             ENABLE = 'Y'

@@ -60,4 +60,9 @@ public class ActivityInfoController {
         return ResponseEntity.ok(activityInfoService.removeActivityInfo(id));
     }
 
+    @Operation(summary = "取得圖片")
+    @GetMapping("/getImage/{id}")
+    public ResponseEntity<String> getImage(@PathVariable String id) {
+        return ResponseEntity.ok(activityInfoService.getImage(id));
+    }
 }
