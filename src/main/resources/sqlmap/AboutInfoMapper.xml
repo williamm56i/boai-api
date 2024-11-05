@@ -22,14 +22,6 @@
         from ABOUT_INFO
         where ID = #{id,jdbcType=DECIMAL}
     </select>
-    <select id="selectEnable" resultMap="BaseResultMap">
-        select
-            ID, TITLE, SUBTITLE, CONTENT
-        from ABOUT_INFO
-        <where>
-            ENABLE = 'Y'
-        </where>
-    </select>
     <insert id="insert">
         insert into ABOUT_INFO ( <include refid="Base_Column_List" /> )
         values (
@@ -128,7 +120,21 @@
     <delete id="deleteByPrimaryKey">
         delete from ABOUT_INFO where id = #{id,jdbcType=DECIMAL}
     </delete>
-    <select id="selectByTitle" resultMap="BaseResultMap">
+    <resultMap id="ResultMap" type="org.boai.persistence.vo.manual.AboutInfoVo">
+        <id column="ID" property="id" jdbcType="DECIMAL" />
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+        <result column="SUBTITLE" property="subtitle" jdbcType="VARCHAR" />
+        <result column="ENABLE" property="enable" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="selectEnable" resultMap="ResultMap">
+        select
+        ID, TITLE, SUBTITLE, CONTENT
+        from ABOUT_INFO
+        <where>
+            ENABLE = 'Y'
+        </where>
+    </select>
+    <select id="selectByTitle" resultMap="ResultMap">
         select
         ID, TITLE, SUBTITLE, ENABLE
         from ABOUT_INFO

@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.dao.AboutInfoDao;
 import org.boai.persistence.vo.AboutInfo;
+import org.boai.persistence.vo.manual.AboutInfoVo;
 import org.boai.security.BoaiUserDetailsService;
 import org.boai.service.AboutInfoService;
 import org.springframework.beans.BeanUtils;
@@ -27,12 +28,12 @@ public class AboutInfoServiceImpl implements AboutInfoService {
     BoaiUserDetailsService userDetailsService;
 
     @Override
-    public List<AboutInfo> getAll() {
+    public List<AboutInfoVo> getAll() {
         return aboutInfoDao.selectEnable();
     }
 
     @Override
-    public List<AboutInfo> getAboutInfo(AboutInfoDto dto) {
+    public List<AboutInfoVo> getAboutInfo(AboutInfoDto dto) {
         return aboutInfoDao.selectByTitle(dto.getTitle());
     }
 

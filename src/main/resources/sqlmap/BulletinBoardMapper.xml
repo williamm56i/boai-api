@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.boai.persistence.dao.BulletinBoardDao">
+  <resultMap id="BaseResultMap" type="org.boai.persistence.vo.BulletinBoard">
+    <id column="id" jdbcType="DECIMAL" property="id" />
+    <result column="announce_date" jdbcType="DATE" property="announceDate" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="content_data" jdbcType="VARCHAR" property="contentData" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_id" jdbcType="VARCHAR" property="updateId" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="enable" jdbcType="VARCHAR" property="enable" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, announce_date, subject, content_data, create_id, create_date, update_id, update_date, 
+    enable
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bulletin_board
+    where id = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bulletin_board
+    where id = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.boai.persistence.vo.BulletinBoard">
+    insert into bulletin_board (id, announce_date, subject, 
+      content_data, create_id, create_date, 
+      update_id, update_date, enable
+      )
+    values (#{id,jdbcType=DECIMAL}, #{announceDate,jdbcType=DATE}, #{subject,jdbcType=VARCHAR}, 
+      #{contentData,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateId,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.boai.persistence.vo.BulletinBoard">
+    insert into bulletin_board
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="announceDate != null">
+        announce_date,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="contentData != null">
+        content_data,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateId != null">
+        update_id,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="enable != null">
+        enable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="announceDate != null">
+        #{announceDate,jdbcType=DATE},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="contentData != null">
+        #{contentData,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.boai.persistence.vo.BulletinBoard">
+    update bulletin_board
+    <set>
+      <if test="announceDate != null">
+        announce_date = #{announceDate,jdbcType=DATE},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="contentData != null">
+        content_data = #{contentData,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        create_id = #{createId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null">
+        update_id = #{updateId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null">
+        enable = #{enable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.boai.persistence.vo.BulletinBoard">
+    update bulletin_board
+    set announce_date = #{announceDate,jdbcType=DATE},
+      subject = #{subject,jdbcType=VARCHAR},
+      content_data = #{contentData,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      enable = #{enable,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="ResultMap" type="org.boai.persistence.vo.manual.BulletinBoardVo">
+    <id column="id" jdbcType="DECIMAL" property="id" />
+    <result column="announce_date" jdbcType="DATE" property="announceDate" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+  </resultMap>
+  <select id="selectEnable" resultMap="ResultMap">
+    select
+    ID, ANNOUNCE_DATE, SUBJECT
+    from BULLETIN_BOARD
+    where ENABLE = 'Y'
+  </select>
+  <select id="selectBySubject" resultMap="ResultMap">
+    select
+    ID, ANNOUNCE_DATE, SUBJECT
+    from BULLETIN_BOARD
+    <where>
+      <if test="subject != null and subject != ''"> SUBJECT like '%' || #{subject,jdbcType=VARCHAR} || '%' </if>
+    </where>
+  </select>
+</mapper>

@@ -3,12 +3,13 @@ package org.boai.service;
 import com.github.pagehelper.PageInfo;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.vo.AboutInfo;
+import org.boai.persistence.vo.manual.AboutInfoVo;
 
 import java.util.List;
 
 public interface AboutInfoService {
 
-    List<AboutInfo> getAll();
+    List<AboutInfoVo> getAll();
 
     /**
      * Get about info
@@ -16,7 +17,7 @@ public interface AboutInfoService {
      * @param dto params
      * @return list
      */
-    List<AboutInfo> getAboutInfo(AboutInfoDto dto);
+    List<AboutInfoVo> getAboutInfo(AboutInfoDto dto);
 
     /**
      * paginate search about info

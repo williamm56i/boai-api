@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.boai.controller.dto.AboutInfoDto;
 import org.boai.persistence.vo.AboutInfo;
+import org.boai.persistence.vo.manual.AboutInfoVo;
 import org.boai.service.AboutInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +24,13 @@ public class AboutInfoController {
 
     @Operation(summary = "查詢生效中的關於我們圖卡資訊")
     @GetMapping("/getAll")
-    public ResponseEntity<List<AboutInfo>> getAll() {
+    public ResponseEntity<List<AboutInfoVo>> getAll() {
         return ResponseEntity.ok(aboutInfoService.getAll());
     }
 
     @Operation(summary = "查詢關於資訊")
     @PostMapping("/getAboutInfo")
-    public ResponseEntity<List<AboutInfo>> getAboutInfo(@RequestBody AboutInfoDto dto) {
+    public ResponseEntity<List<AboutInfoVo>> getAboutInfo(@RequestBody AboutInfoDto dto) {
         return ResponseEntity.ok(aboutInfoService.getAboutInfo(dto));
     }
 

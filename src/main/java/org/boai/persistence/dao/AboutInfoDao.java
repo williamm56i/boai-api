@@ -3,6 +3,7 @@ package org.boai.persistence.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.boai.persistence.vo.AboutInfo;
+import org.boai.persistence.vo.manual.AboutInfoVo;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,7 +16,7 @@ public interface AboutInfoDao {
      *
      * @return list
      */
-    List<AboutInfo> selectEnable();
+    List<AboutInfoVo> selectEnable();
 
     /**
      * 以主題查詢
@@ -23,7 +24,7 @@ public interface AboutInfoDao {
      * @param title 主題
      * @return list
      */
-    List<AboutInfo> selectByTitle(@Param("title") String title);
+    List<AboutInfoVo> selectByTitle(@Param("title") String title);
 
     /**
      * 以主鍵查詢
