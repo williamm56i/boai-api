@@ -3,6 +3,7 @@ package org.boai.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.boai.controller.dto.BulletinBoardDto;
+import org.boai.persistence.vo.BulletinBoard;
 import org.boai.persistence.vo.manual.BulletinBoardVo;
 import org.boai.service.BulletinBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,27 @@ public class BulletinBoardController {
         return ResponseEntity.ok(bulletinBoardService.getBulletinBoard(dto));
     }
 
+    @Operation(summary = "查詢最新消息明細")
+    @GetMapping("/getBulletinBoardDetail/{id}")
+    public ResponseEntity<BulletinBoard> getBulletinBoardDetail(@PathVariable String id) {
+        return ResponseEntity.ok(bulletinBoardService.getBulletinBoardDetail(id));
+    }
+
+    @Operation(summary = "新增最新消息")
+    @PostMapping("/createBulletinBoard")
+    public ResponseEntity<String> createBulletinBoard(@RequestBody BulletinBoardDto dto) {
+        return ResponseEntity.ok(bulletinBoardService.createBulletinBoard(dto));
+    }
+
+    @Operation(summary = "異動最新消息")
+    @PutMapping("/modifyBulletinBoard")
+    public ResponseEntity<String> modifyBulletinBoard(@RequestBody BulletinBoardDto dto) {
+        return ResponseEntity.ok(bulletinBoardService.modifyBulletinBoard((dto)));
+    }
+
+    @Operation(summary = "刪除最新消息")
+    @DeleteMapping("/removeBulletinBoard/{id}")
+    public ResponseEntity<String>  removeBulletinBoard(@PathVariable String id) {
+        return ResponseEntity.ok(bulletinBoardService.removeBulletinBoard(id));
+    }
 }

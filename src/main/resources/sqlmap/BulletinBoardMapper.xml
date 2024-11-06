@@ -3,7 +3,7 @@
 <mapper namespace="org.boai.persistence.dao.BulletinBoardDao">
   <resultMap id="BaseResultMap" type="org.boai.persistence.vo.BulletinBoard">
     <id column="id" jdbcType="DECIMAL" property="id" />
-    <result column="announce_date" jdbcType="DATE" property="announceDate" />
+    <result column="announce_date" jdbcType="TIMESTAMP" property="announceDate" />
     <result column="subject" jdbcType="VARCHAR" property="subject" />
     <result column="content_data" jdbcType="VARCHAR" property="contentData" />
     <result column="create_id" jdbcType="VARCHAR" property="createId" />
@@ -16,13 +16,13 @@
     id, announce_date, subject, content_data, create_id, create_date, update_id, update_date, 
     enable
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from bulletin_board
     where id = #{id,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
     delete from bulletin_board
     where id = #{id,jdbcType=DECIMAL}
   </delete>
@@ -31,7 +31,7 @@
       content_data, create_id, create_date, 
       update_id, update_date, enable
       )
-    values (#{id,jdbcType=DECIMAL}, #{announceDate,jdbcType=DATE}, #{subject,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=DECIMAL}, #{announceDate,jdbcType=TIMESTAMP}, #{subject,jdbcType=VARCHAR},
       #{contentData,jdbcType=VARCHAR}, #{createId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
       #{updateId,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{enable,jdbcType=VARCHAR}
       )
@@ -72,7 +72,7 @@
         #{id,jdbcType=DECIMAL},
       </if>
       <if test="announceDate != null">
-        #{announceDate,jdbcType=DATE},
+        #{announceDate,jdbcType=TIMESTAMP},
       </if>
       <if test="subject != null">
         #{subject,jdbcType=VARCHAR},
@@ -101,7 +101,7 @@
     update bulletin_board
     <set>
       <if test="announceDate != null">
-        announce_date = #{announceDate,jdbcType=DATE},
+        announce_date = #{announceDate,jdbcType=TIMESTAMP},
       </if>
       <if test="subject != null">
         subject = #{subject,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.boai.persistence.vo.BulletinBoard">
     update bulletin_board
-    set announce_date = #{announceDate,jdbcType=DATE},
+    set announce_date = #{announceDate,jdbcType=TIMESTAMP},
       subject = #{subject,jdbcType=VARCHAR},
       content_data = #{contentData,jdbcType=VARCHAR},
       create_id = #{createId,jdbcType=VARCHAR},
@@ -141,18 +141,19 @@
   </update>
   <resultMap id="ResultMap" type="org.boai.persistence.vo.manual.BulletinBoardVo">
     <id column="id" jdbcType="DECIMAL" property="id" />
-    <result column="announce_date" jdbcType="DATE" property="announceDate" />
+    <result column="announce_date" jdbcType="TIMESTAMP" property="announceDate" />
     <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="enable" jdbcType="VARCHAR" property="enable" />
   </resultMap>
   <select id="selectEnable" resultMap="ResultMap">
     select
     ID, ANNOUNCE_DATE, SUBJECT
     from BULLETIN_BOARD
-    where ENABLE = 'Y'
+    where ENABLE = 'Y' and ANNOUNCE_DATE &lt;= #{sysDate,jdbcType=TIMESTAMP}
   </select>
   <select id="selectBySubject" resultMap="ResultMap">
     select
-    ID, ANNOUNCE_DATE, SUBJECT
+    ID, ANNOUNCE_DATE, SUBJECT, ENABLE
     from BULLETIN_BOARD
     <where>
       <if test="subject != null and subject != ''"> SUBJECT like '%' || #{subject,jdbcType=VARCHAR} || '%' </if>

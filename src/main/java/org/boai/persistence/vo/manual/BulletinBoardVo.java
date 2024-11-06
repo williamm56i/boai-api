@@ -13,4 +13,6 @@ public class BulletinBoardVo {
     Date announceDate;
 
     String subject;
+
+    String enable;
 }
