@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://172.17.0.3:5432/boai
+    username: postgres
+    password: ENC(c2tJm998W6u7lEKWi2o0StX/QSbm0BNU)
+    driver-class-name: org.postgresql.Driver
+  application:
+    name: boai
+  jackson:
+    time-zone: Asia/Taipei
+    date-format: yyyy/MM/dd HH:mm:ss
+server:
+  servlet:
+    context-path: /boai
+jasypt:
+  encryptor:
+    password: boai
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
+mybatis:
+  mapper-locations: classpath:/sqlmap/*.xml
+jwt:
+  token-expire-time: 300000
+recaptcha:
+  recaptcha-verify-url: https://www.google.com/recaptcha/api/siteverify
+  recaptcha-secret: 6Ld6omkqAAAAADMOgoxWdlJj30hJ26JXWhT9bvG6
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  webjars:
+    prefix: ""
