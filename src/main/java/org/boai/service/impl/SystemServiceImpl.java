@@ -66,7 +66,7 @@ public class SystemServiceImpl implements SystemService {
             List<String> roleList = sysRelUserRoleDao.selectRole(account);
             return JwtUtils.generate(account, roleList, tokenExpireTime);
         } else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
     }
 

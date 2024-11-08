@@ -43,7 +43,6 @@ public class AboutInfoController {
 
     @Operation(summary = "查詢關於我們明細")
     @GetMapping("/getAboutInfoDetail/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<AboutInfo> getAboutInfoDetail(@PathVariable String id) {
         return ResponseEntity.ok(aboutInfoService.getAboutInfoDetail(id));
     }

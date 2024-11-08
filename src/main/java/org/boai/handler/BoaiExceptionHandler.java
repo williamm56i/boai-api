@@ -3,6 +3,7 @@ package org.boai.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,5 +32,13 @@ public class BoaiExceptionHandler {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+
+    @ExceptionHandler(value = AuthorizationDeniedException.class)
+    @ResponseBody
+    public ResponseEntity<String> authorizationDeniedExceptionHandler(Exception e) {
+        e.printStackTrace();
+        log.error("authorizationDeniedExceptionHandler: {}", e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
     }
 }
