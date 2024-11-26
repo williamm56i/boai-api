@@ -7,7 +7,7 @@
 * JWT
 * Maven
 * Mybatis
-* h2
+* postgresql
 * Swagger
 
 ### 開發工具
@@ -24,9 +24,9 @@ mvn install
 ```
 * build image
 ```
-docker build --tag boai:latest .
+docker build -t boai-api .
 ```
 * run 
 ```
-docker run --name BOAI -p 8080:8080 -d boai:latest
+docker run --name BOAI-API -p 8080:8080 -d boai-api
 ```
