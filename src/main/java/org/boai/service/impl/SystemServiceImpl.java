@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -62,6 +63,8 @@ public class SystemServiceImpl implements SystemService {
                 if (!StringUtils.equals(password, code)) {
                     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
                 }
+            } else {
+                countVisitor();
             }
             List<String> roleList = sysRelUserRoleDao.selectRole(account);
             return JwtUtils.generate(account, roleList, tokenExpireTime);
@@ -90,5 +93,25 @@ public class SystemServiceImpl implements SystemService {
         Map<String, Object> resultMap = objectMapper.readValue(jsonResult, mapType);
         boolean success = (boolean) resultMap.get("success");
         return success ? "SUCCESS" : "FAIL";
+    }
+
+    private void countVisitor() {
+        SysCode sysCode = sysCodeDao.selectByPrimaryKey("WEB", "VISITOR");
+        if (sysCode == null) {
+            sysCode = new SysCode();
+            sysCode.setSysGroup("WEB");
+            sysCode.setSysName("VISITOR");
+            sysCode.setSysValue("1");
+            sysCode.setCreateId("SYS");
+            sysCode.setCreateDate(new Date());
+            sysCodeDao.insert(sysCode);
+        } else {
+            int count = Integer.parseInt(sysCode.getSysValue());
+            count++;
+            sysCode.setSysValue(String.valueOf(count));
+            sysCode.setUpdateId("SYS");
+            sysCode.setUpdateDate(new Date());
+            sysCodeDao.updateByPrimaryKeySelective(sysCode);
+        }
     }
 }

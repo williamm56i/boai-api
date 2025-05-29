@@ -27,4 +27,30 @@
             SYS_GROUP = #{sysGroup,jdbcType=VARCHAR}
         </where>
     </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from SYS_CODE
+        where SYS_GROUP = #{sysGroup,jdbcType=VARCHAR} and SYS_NAME = #{sysName,jdbcType=VARCHAR}
+    </select>
+    <insert id="insert">
+        insert into SYS_CODE (
+            SYS_GROUP, SYS_NAME, SYS_VALUE, MEMO, CREATE_ID, CREATE_DATE, UPDATE_ID, UPDATE_DATE
+        ) values (
+            #{sysGroup,jdbcType=VARCHAR}, #{sysName,jdbcType=VARCHAR},
+            #{sysValue,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR},
+            #{createId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+            #{updateId,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <update id="updateByPrimaryKeySelective">
+        update SYS_CODE
+        <set>
+            <if test="sysValue != null"> SYS_VALUE = #{sysValue,jdbcType=VARCHAR}, </if>
+            <if test="memo != null"> MEMO = #{memo,jdbcType=VARCHAR}, </if>
+            <if test="updateId != null"> UPDATE_ID = #{updateId,jdbcType=VARCHAR}, </if>
+            <if test="updateDate != null"> UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP} </if>
+        </set>
+        where SYS_GROUP = #{sysGroup,jdbcType=VARCHAR} and SYS_NAME = #{sysName,jdbcType=VARCHAR}
+    </update>
 </mapper>
