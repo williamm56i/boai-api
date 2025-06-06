@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,12 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public List<SysCode> getSysCodeAll() {
         return sysCodeDao.selectAll();
+    }
+
+    @Override
+    public String getVisitorCount() {
+        SysCode sysCode = sysCodeDao.selectByPrimaryKey("WEB", "VISITOR");
+        return sysCode.getSysValue();
     }
 
     @Override

@@ -46,6 +46,12 @@ public class SystemController {
         return ResponseEntity.ok(systemService.getSysCodeAll());
     }
 
+    @Operation(summary = "取得訪客人次")
+    @GetMapping("/getVisitorCount")
+    public ResponseEntity<String> getVisitorCount() {
+        return ResponseEntity.ok(systemService.getVisitorCount());
+    }
+
     @Operation(summary = "機器人驗證")
     @PostMapping("/verifyRecaptcha")
     public String verifyRecaptcha(@RequestParam("token") String token) throws JsonProcessingException {
