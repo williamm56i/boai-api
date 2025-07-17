@@ -2,7 +2,7 @@
 
 ### 技術框架
 * Java version 18
-* Spring boot 3.3.13
+* Spring boot 3.5.3
 * Spring Security
 * JWT
 * Maven
