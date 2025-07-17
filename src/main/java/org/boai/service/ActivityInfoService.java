@@ -5,6 +5,7 @@ import org.boai.controller.dto.ApplyDto;
 import org.boai.persistence.vo.ActivityInfo;
 import org.boai.persistence.vo.ApplyInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ActivityInfoService {
@@ -28,4 +29,6 @@ public interface ActivityInfoService {
      * @return string
      */
     String getImage(String id);
+
+    List<ActivityInfo> getLatestActivities(BigDecimal num);
 }

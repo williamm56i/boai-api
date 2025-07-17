@@ -82,4 +82,9 @@ public class ActivityInfoServiceImpl implements ActivityInfoService {
     public String getImage(String id) {
         return activityInfoDao.selectImageByPrimaryKey(new BigDecimal(id));
     }
+
+    @Override
+    public List<ActivityInfo> getLatestActivities(BigDecimal num) {
+        return activityInfoDao.selectLatestActivities(num);
+    }
 }

@@ -45,4 +45,5 @@ public interface ActivityInfoDao {
 
     String selectImageByPrimaryKey(@Param("id") BigDecimal id);
 
+    List<ActivityInfo> selectLatestActivities(@Param("num") BigDecimal num);
 }

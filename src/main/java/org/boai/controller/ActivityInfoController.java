@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Tag(name = "活動資訊")
@@ -64,5 +65,11 @@ public class ActivityInfoController {
     @GetMapping("/getImage/{id}")
     public ResponseEntity<String> getImage(@PathVariable String id) {
         return ResponseEntity.ok(activityInfoService.getImage(id));
+    }
+
+    @Operation(summary = "取得最新活動資訊")
+    @GetMapping("/getLatestActivities/{num}")
+    public ResponseEntity<List<ActivityInfo>> getLatestActivities(@PathVariable BigDecimal num) {
+        return ResponseEntity.ok(activityInfoService.getLatestActivities(num));
     }
 }

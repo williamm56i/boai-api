@@ -163,4 +163,11 @@
     <select id="selectImageByPrimaryKey" resultType="java.lang.String">
         select IMAGE from ACTIVITY_INFO where ID = #{id,jdbcType=DECIMAL}
     </select>
+    <select id="selectLatestActivities" resultMap="BaseResultMap">
+        select
+        ID, TITLE, SUBTITLE, CONTENT, ACTIVITY_GROUP, ACTIVITY_DATE
+        from ACTIVITY_INFO
+        order by ACTIVITY_DATE desc
+        limit #{num,jdbcType=DECIMAL}
+    </select>
 </mapper>
