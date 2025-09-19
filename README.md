@@ -1,8 +1,8 @@
 # Boai API
 
 ### 技術框架
-* Java version 18
-* Spring boot 3.5.3
+* Java version 21
+* Spring boot 3.5.5
 * Spring Security
 * JWT
 * Maven
@@ -14,6 +14,8 @@
 * IntelliJ
 
 ### 版本資訊
+* 1.0.0
+  * 對外啟用，更新Java版本至21
 * 0.0.1-SNAPSHOT
   * 初版
 
