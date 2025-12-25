@@ -2,7 +2,7 @@
 
 ### 技術框架
 * Java version 21
-* Spring boot 3.5.5
+* Spring boot 3.5.9
 * Spring Security
 * JWT
 * Maven
