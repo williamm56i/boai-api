@@ -14,7 +14,7 @@
 	<name>boai</name>
 	<description>Backend project for Boai</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
