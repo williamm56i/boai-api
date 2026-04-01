@@ -4,7 +4,7 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,19 +12,18 @@ import java.util.Map;
 @Slf4j
 public class JwtUtils {
 
-    private static Key secretKey;
+    private static SecretKey secretKey;
 
     public static String generate(String username, Object roleList, long tokenExpireTime) {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        Key secretKey = generalKey();
+        SecretKey secretKey = generalKey();
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", roleList);
-        JwtBuilder builder = Jwts.builder()
-                .signWith(secretKey, signatureAlgorithm)
-                .setClaims(claims)
-                .setSubject(username)
-                .setExpiration(getExpireDate(tokenExpireTime));
-        return builder.compact();
+        return Jwts.builder()
+                .signWith(secretKey)
+                .claims(claims)
+                .subject(username)
+                .expiration(getExpireDate(tokenExpireTime))
+                .compact();
     }
 
     public static String refresh(String jwt, long tokenExpireTime) {
@@ -36,18 +35,18 @@ public class JwtUtils {
     }
 
     public static Claims parseJwt(String jwt) {
-        Key secretKey = generalKey();
+        SecretKey secretKey = generalKey();
         try {
-            return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwt).getBody();
+            return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(jwt).getPayload();
         } catch (ExpiredJwtException e) {
             log.error(e.getMessage());
             return null;
         }
     }
 
-    private static Key generalKey() {
+    private static SecretKey generalKey() {
         if (secretKey == null) {
-            secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+            secretKey = Keys.hmacShaKeyFor(new byte[32]);
         }
         return secretKey;
     }
