@@ -10,6 +10,11 @@ spring:
   jackson:
     time-zone: Asia/Taipei
     date-format: yyyy/MM/dd HH:mm:ss
+  http:
+    converters:
+      preferred-json-mapper: jackson
+    codecs:
+      preferred-json-mapper: jackson
 server:
   servlet:
     context-path: /boai

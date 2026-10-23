@@ -1,9 +1,5 @@
 package org.boai.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.boai.persistence.dao.SysCodeDao;
@@ -20,6 +16,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.type.TypeFactory;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -91,7 +91,7 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public String verifyRecaptcha(String token) throws JsonProcessingException {
+    public String verifyRecaptcha(String token) throws JacksonException {
         String requestUrl = recaptchaVerifyUrl + "?secret=" + recaptchaSecret + "&response=" + token;
         String jsonResult = HttpUtils.post(requestUrl, null);
         log.info(jsonResult);

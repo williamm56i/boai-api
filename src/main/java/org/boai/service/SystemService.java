@@ -1,6 +1,6 @@
 package org.boai.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import tools.jackson.core.JacksonException;
 import org.boai.persistence.vo.SysCode;
 
 import java.math.BigDecimal;
@@ -18,5 +18,5 @@ public interface SystemService {
 
     String getVisitorCount();
 
-    String verifyRecaptcha(String token) throws JsonProcessingException;
+    String verifyRecaptcha(String token) throws JacksonException;
 }

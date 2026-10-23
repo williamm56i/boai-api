@@ -1,6 +1,5 @@
 package org.boai.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.boai.annotation.Pims;
 import org.boai.controller.dto.LoginDto;
 import org.boai.persistence.vo.SysCode;
@@ -10,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.core.JacksonException;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class SystemController {
 
     @Operation(summary = "機器人驗證")
     @PostMapping("/verifyRecaptcha")
-    public String verifyRecaptcha(@RequestParam("token") String token) throws JsonProcessingException {
+    public String verifyRecaptcha(@RequestParam("token") String token) throws JacksonException {
         return systemService.verifyRecaptcha(token);
     }
 }

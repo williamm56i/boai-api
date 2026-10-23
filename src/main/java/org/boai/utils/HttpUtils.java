@@ -1,10 +1,10 @@
 package org.boai.utils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
@@ -45,9 +45,9 @@ public class HttpUtils {
      * @param url  URL
      * @param body request boy
      * @return json string
-     * @throws JsonProcessingException e
+     * @throws JacksonException e
      */
-    public static String post(String url, Object body) throws JsonProcessingException {
+    public static String post(String url, Object body) throws JacksonException {
         return post(url, body, null);
     }
 
@@ -58,9 +58,9 @@ public class HttpUtils {
      * @param body      request boy
      * @param headerMap custom header
      * @return json string
-     * @throws JsonProcessingException e
+     * @throws JacksonException e
      */
-    public static String post(String url, Object body, Map<String, String> headerMap) throws JsonProcessingException {
+    public static String post(String url, Object body, Map<String, String> headerMap) throws JacksonException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(body);
 
